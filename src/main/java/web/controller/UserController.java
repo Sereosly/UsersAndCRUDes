@@ -1,3 +1,4 @@
+// src/main/java/web/controller/UserController.java
 package web.controller;
 
 import web.model.User;
@@ -8,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
-public class UserController {
+public final class UserController {
 
     private final UserService userService;
 
@@ -32,16 +32,17 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping("/users/save")
-    public String saveUser(@RequestParam(required = false) Long id, @RequestParam String username, @RequestParam Byte age, @RequestParam String city) {
-        final User user;
-        if (id != null) {
-            user = new User(id, username, age, city);
-            userService.update(user);
-        } else {
-            user = new User(username, age, city);
-            userService.save(user);
-        }
+    @PostMapping("/users/create")
+    public String createUser(@RequestParam String username, @RequestParam Byte age, @RequestParam String city) {
+        final User user = new User(username, age, city);
+        userService.save(user);
+        return "redirect:/users";
+    }
+
+    @PostMapping("/users/update")
+    public String updateUser(@RequestParam Long id, @RequestParam String username, @RequestParam Byte age, @RequestParam String city) {
+        final User user = new User(id, username, age, city);
+        userService.update(user);
         return "redirect:/users";
     }
 
