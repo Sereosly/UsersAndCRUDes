@@ -1,6 +1,7 @@
 // src/main/java/web/controller/UserController.java
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import web.model.User;
 import web.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ public final class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
